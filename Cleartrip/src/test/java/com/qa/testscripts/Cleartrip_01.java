@@ -17,14 +17,13 @@ import org.testng.annotations.Test;
 import com.qa.pages.Cleartrip_Element;
 import com.qa.utitlity.ExcelUtility;
 
-public class Cleartrip_001 extends TestBase{
-
+public class Cleartrip_01 extends TestBase{
 
 
 	@DataProvider(name="getdata")
 	public String[][] getData() throws IOException 
 	{
-		String xFile="D:\\Cleartrip\\src\\test\\java\\com\\qa\\testdata\\Book1.xlsx";
+		String xFile="C:\\Users\\madha\\eclipse-workspace\\Cleartrip\\src\\test\\java\\com\\qa\\testdata\\Book1.xlsx";
 		String xSheet="Sheet1";
 
 		int rowCount = ExcelUtility.getRowCount(xFile, xSheet);
@@ -64,8 +63,24 @@ public class Cleartrip_001 extends TestBase{
 		Cleartrip_Element.Where.sendKeys(Source);
 		Thread.sleep(15000);
 
-		Cleartrip_Element.drop1.click();
-		Thread.sleep(4000);
+		//Cleartrip_Element.drop1.click();
+		//Thread.sleep(4000);
+		
+		try {
+			Cleartrip_Element.drop1.click();
+			Thread.sleep(4000);
+			//System.out.println(Cleartrip_Element.flightdetails.getText());
+			
+		}catch(NoSuchElementException e){
+			
+			TakesScreenshot scrShot =((TakesScreenshot) driver);
+			File firstsrc1=scrShot.getScreenshotAs(OutputType.FILE);
+			File destination1= new File("./snapimg/failed1.png");
+			FileUtils.copyFile(firstsrc1,destination1);
+			System.out.println("failed drop");
+			System.out.println("not found the element  ");
+			Thread.sleep(4000);
+		}
 
 		Cleartrip_Element.to.click();
 		Thread.sleep(4000);
@@ -78,30 +93,31 @@ public class Cleartrip_001 extends TestBase{
 
 		Cleartrip_Element.to.sendKeys(Destination);
 		Thread.sleep(15000);
-
-		Cleartrip_Element.drop2.click();
-		Thread.sleep(8000);
-
 		
 		try {
-			Cleartrip_Element.search.click();
-			Thread.sleep(16000);
-
-			System.out.println(Cleartrip_Element.flightdetails.getText());
-		}
-		catch(NoSuchElementException e)
-		{
+			Cleartrip_Element.drop2.click();
+			Thread.sleep(4000);
+			//System.out.println(Cleartrip_Element.flightdetails.getText());
+			
+		}catch(NoSuchElementException  e){
+			
 			TakesScreenshot scrShot =((TakesScreenshot) driver);
-    		File firstsrc=scrShot.getScreenshotAs(OutputType.FILE);
-    		File destination= new File("./snap/failed.png");
-    		FileUtils.copyFile(firstsrc,destination);
+			File firstsrc2=scrShot.getScreenshotAs(OutputType.FILE);
+			File destination2= new File("./snapimg/failed2.png");
+			FileUtils.copyFile(firstsrc2,destination2);
+			System.out.println("not found the element 1 ");
+			Thread.sleep(4000);
+
 		}
 		
-  
+		
+		//Cleartrip_Element.drop2.click();
+		//Thread.sleep(8000);
+		Cleartrip_Element.search.click();
+		Thread.sleep(16000);
+
 		driver.navigate().back();
 		Thread.sleep(8000);
-
-
 
 	}
 
